@@ -5,6 +5,8 @@ proc-macro = true
 name = "struct-record"
 version = "0.1.0"
 edition = "2024"
+description = "Macro utility for defining structs with fields that exhaustively match enum variants, like a 'Record'"
+license = "MIT OR Apache-2.0"
 
 [dependencies]
 cargo-expand = "1.0.121"
