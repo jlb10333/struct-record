@@ -31,12 +31,15 @@ pub fn record(
 
   let mut ast_iter = ast_tokens.clone().into_iter();
 
-  let _ = ast_iter.next().expect(GENERIC_ERROR_MSG);
-  let _ = ast_iter.next().expect(GENERIC_ERROR_MSG);
-
-  let TokenTree::Group(enum_props_group) = ast_iter.next().expect(GENERIC_ERROR_MSG) else {
-    panic!("{}", GENERIC_ERROR_MSG)
-  };
+  let enum_props_group = ast_iter
+    .find_map(|next| {
+      if let TokenTree::Group(group) = next {
+        Some(group)
+      } else {
+        None
+      }
+    })
+    .expect(GENERIC_ERROR_MSG);
 
   let struct_props: Vec<TokenStream> = enum_props_group
     .stream()
