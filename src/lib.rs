@@ -51,7 +51,7 @@ pub fn record(
         let snake_ident = syn::Ident::new(&snake, ident_str.span());
 
         Some(quote! {
-          #snake_ident: #value_type ,
+          pub #snake_ident: #value_type ,
         })
       } else {
         None
