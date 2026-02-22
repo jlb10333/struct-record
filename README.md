@@ -14,7 +14,7 @@ enum ExampleEnum {
   BazExample,
 }
 
-const ex: ExampleEnum = ExampleEnum {
+const ex: ExampleEnumToF32 = ExampleEnumToF32 {
   foo_example: 1.0,
   bar_example: 2.0,
   baz_example: 3.0,
