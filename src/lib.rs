@@ -1,7 +1,6 @@
 use std::str::FromStr;
 
 use convert_case::Casing;
-use paste::paste;
 use proc_macro2::{TokenStream, TokenTree};
 use quote::quote;
 use syn::spanned::Spanned;
@@ -29,17 +28,23 @@ pub fn record(
 
   let ast_tokens: TokenStream = ast.clone().into();
 
-  let mut ast_iter = ast_tokens.clone().into_iter();
+  let ast_iter = ast_tokens.clone().into_iter();
 
-  let enum_props_group = ast_iter
-    .find_map(|next| {
-      if let TokenTree::Group(group) = next {
-        Some(group)
-      } else {
-        None
-      }
-    })
-    .expect(GENERIC_ERROR_MSG);
+  let mut iter_after_enum = ast_iter.skip_while(|next| {
+    if let TokenTree::Ident(ident) = next
+      && ident.to_string() != "enum"
+    {
+      true
+    } else {
+      false
+    }
+  });
+
+  let _ = iter_after_enum.next().expect(GENERIC_ERROR_MSG);
+  let _ = iter_after_enum.next().expect(GENERIC_ERROR_MSG);
+  let TokenTree::Group(enum_props_group) = iter_after_enum.next().expect(GENERIC_ERROR_MSG) else {
+    panic!("{GENERIC_ERROR_MSG}")
+  };
 
   let struct_props: Vec<TokenStream> = enum_props_group
     .stream()
@@ -70,6 +75,8 @@ pub fn record(
       #(#struct_props)*
     }
   };
+
+  // panic!("{output}");
 
   output.into()
 }

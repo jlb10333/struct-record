@@ -2,7 +2,8 @@ use struct_record::record;
 
 #[test]
 fn test_record() {
-    #[record(i32, TestEnumToI32, "#[derive(Clone)]")]
+    #[derive(Clone, Copy, Hash, PartialEq, Eq)]
+    #[record(i32, TestEnumToI32, "#[derive(Clone)] pub")]
     enum TestEnum {
         Foo(i32),
         BarValue,

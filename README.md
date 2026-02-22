@@ -23,4 +23,4 @@ const ex: ExampleEnumToF32 = ExampleEnumToF32 {
 
 ## Installation
 
-`cargo install struct-record`
+`cargo add struct-record`
