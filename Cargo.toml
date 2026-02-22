@@ -3,7 +3,7 @@ proc-macro = true
 
 [package]
 name = "struct-record"
-version = "0.1.2"
+version = "0.1.3"
 edition = "2024"
 description = "Macro utility for defining structs with fields that exhaustively match enum variants, like a 'Record'"
 license = "MIT OR Apache-2.0"
